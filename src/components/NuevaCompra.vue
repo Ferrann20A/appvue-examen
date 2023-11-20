@@ -35,11 +35,12 @@ const service = new ServiceCubos();
             insertarCompra(){
                 // console.log(this.selectCubos);
                 let idCubo = this.selectCubos;
-                let token = service.getToken();
+                // let token = service.getToken();
                 console.log(idCubo);
-                console.log(token);
-                service.nuevaCompra(token,idCubo).then(result=>{
+                // console.log(token);
+                service.nuevaCompra2(idCubo).then(result=>{
                     console.log(result);
+                    this.$router.push("/compras");
                 })
             }
         }

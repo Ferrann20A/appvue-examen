@@ -2,7 +2,8 @@
   <div class="container">
     <h1>Cubos de la marca {{$route.params.marca}}</h1>
     <br/>
-    <div class="card m-3" style="width: 18rem" v-for="c in cubos" :key="c.idCubo">
+    <div class="d-flex flex-wrap">
+      <div class="card m-3" style="width: 18rem" v-for="c in cubos" :key="c.idCubo">
             <img :src="c.imagen" class="card-img-top" alt="img_cubo" />
             <div class="card-body">
                 <h5 class="card-title">{{c.nombre}}</h5>
@@ -12,6 +13,8 @@
                 <router-link class="btn btn-info" :to="`/detalles/${c.idCubo}`">Comentarios</router-link>
             </div>
         </div>
+    </div>
+    
   </div>
 </template>
 

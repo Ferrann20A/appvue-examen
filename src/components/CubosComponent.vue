@@ -2,8 +2,8 @@
   <div class="container">
     <h1>Cubos</h1>
     <br />
-    <div class="">
-        <div class="card m-3" style="width: 18rem" v-for="c in cubos" :key="c.idCubo">
+    <div class="d-flex flex-wrap">
+      <div class="card m-3" style="width: 18rem" v-for="c in cubos" :key="c.idCubo">
             <img :src="c.imagen" class="card-img-top" alt="img_cubo" />
             <div class="card-body">
                 <h5 class="card-title">{{c.nombre}}</h5>

@@ -15,6 +15,19 @@ export default class ServiceCubos{
         })
     }
 
+    findCuboById(idCubo){
+        return new Promise(function(resolve){
+            let request = `api/cubos/${idCubo}`;
+            let url = Global.URL_ApiCubos + request;
+            let cubo = {};
+            axios.get(url).then(response=>{
+                cubo = response.data;
+                resolve(cubo)
+            })
+            return cubo;
+        })
+    }
+
     getMarcas(){
         return new Promise(function(resolve){
             let request = "api/cubos/marcas";
@@ -60,6 +73,7 @@ export default class ServiceCubos{
             let url = Global.URL_ApiCubos + request;
             axios.post(url,user).then(response=>{
                 Global.token = response.data.response;
+                localStorage.setItem("token",response.data.response);
                 console.log("Token en global: " + Global.token);
                 resolve(response.data);
             })
@@ -126,7 +140,23 @@ export default class ServiceCubos{
             }
             let request = `api/compra/insertarpedido/${idCubo}`;
             let url = Global.URL_ApiCubos + request;
-            axios.post(url,config).then(response=>{
+            axios.post(url,"",config).then(response=>{
+                resolve(response);
+            })
+        })
+    }
+
+    nuevaCompra2(idCubo){
+        return new Promise(function(resolve){
+            let token = localStorage.getItem("token");
+            let config = {
+                headers : {
+                    'Authorization' : `bearer ${token}`
+                }
+            }
+            let request = `api/compra/insertarpedido/${idCubo}`;
+            let url = Global.URL_ApiCubos + request;
+            axios.post(url,"",config).then(response=>{
                 resolve(response);
             })
         })

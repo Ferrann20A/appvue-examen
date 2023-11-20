@@ -19,6 +19,9 @@
         <div v-else>
             <p class="text-danger">Sin comentarios....</p>
         </div>
+        <br/>
+        <router-link class="btn btn-danger" :to="'/'">Volver</router-link> 
+        <!-- `/cubosmarca/${cubo.marca}` -->
     </div>
 </template>
 
@@ -29,7 +32,8 @@ const service = new ServiceCubos();
         name:"CuboDetalles",
         data(){
             return{
-                comentarios:[]
+                comentarios:[],
+                cubo:{}
             }
         },
         mounted(){
@@ -37,6 +41,9 @@ const service = new ServiceCubos();
             service.getComentariosCuboByIdCubo(idCubo).then(result=>{
                 this.comentarios = result;
             });
+            service.findCuboById(idCubo).then(result=>{
+                this.cubo = result;
+            })
         }
     }
 </script>
