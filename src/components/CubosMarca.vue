@@ -1,0 +1,45 @@
+<template>
+  <div class="container">
+    <h1>Cubos de la marca {{$route.params.marca}}</h1>
+    <br/>
+    <div class="card m-3" style="width: 18rem" v-for="c in cubos" :key="c.idCubo">
+            <img :src="c.imagen" class="card-img-top" alt="img_cubo" />
+            <div class="card-body">
+                <h5 class="card-title">{{c.nombre}}</h5>
+                <p class="card-text">{{c.modelo}}, {{c.marca}}</p>
+                <p class="card-text">{{c.precio}}€</p>
+                <p class="card-text">Valoración: {{c.valoracion}}</p>
+                <router-link class="btn btn-info" :to="`/detalles/${c.idCubo}`">Comentarios</router-link>
+            </div>
+        </div>
+  </div>
+</template>
+
+<script>
+import ServiceCubos from "./../services/ServiceCubos";
+const service = new ServiceCubos();
+export default {
+  name: "CubosMarca",
+  data() {
+    return {
+      cubos: [],
+    };
+  },
+  mounted() {
+    let marca = this.$route.params.marca;
+    service.getCubosByMarca(marca).then((result) => {
+      this.cubos = result;
+    });
+  },
+  watch: {
+    "$route.params.marca"(nextVal, oldVal) {
+      if (nextVal != oldVal) {
+        let marca = this.$route.params.marca;
+        service.getCubosByMarca(marca).then((result) => {
+          this.cubos = result;
+        });
+      }
+    },
+  },
+};
+</script>

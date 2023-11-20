@@ -8,32 +8,32 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <router-link class="nav-link active" aria-current="page" to="/">Home</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/prueba">Prueba</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/">3º link</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link class="nav-link" to="/">4ºlink</router-link>
+          <router-link class="nav-link active" aria-current="page" to="/">Cubos</router-link>
         </li>
       <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown link
+            Marcas
           </a>
           <ul class="dropdown-menu">
-            <li>
-                <a class="dropdown-item" href="#">link</a>
+            <li v-for="m in marcas" :key="m">
+                <router-link class="dropdown-item" :to="`/cubosmarca/${m}`">{{m}}</router-link>
             </li>
-            <li>
-                <a class="dropdown-item" href="#">link</a>
-            </li>
-            <!-- <li v-for="c in cursos" :key="c">
-                <router-link class="dropdown-item" :to="`/cursoalumnos/${c}`">Curso {{c}}</router-link>
-            </li> -->
           </ul>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/login">Login</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/nuevousuario">Registro</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/perfil">Perfil</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/compras">Compras</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link class="nav-link" to="/nuevacompra">Nueva Compra</router-link>
         </li>
       </ul>
     </div>
@@ -42,8 +42,20 @@
 </template>
 
 <script>
+import ServiceCubos from './../services/ServiceCubos';
+const service = new ServiceCubos();
     export default{
-        name:"MenuComponent"
+        name:"MenuComponent",
+        data(){
+          return{
+            marcas:[]
+          }
+        },
+        mounted(){
+          service.getMarcas().then(result=>{
+            this.marcas = result;
+          })
+        }
     }
 </script>
 
